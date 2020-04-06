@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task Manager</title>
+	<style type="text/css">
+
+		body {
+			text-align: center;
+		}
+
+		input[type='text'] {
+			border: 1px solid #2196f3;
+			border-radius: 10px;
+			width: 30%;
+			height: 20px;
+			text-indent: 5px;
+			font-size: 18px;
+		}
+
+		header {
+			background-image: url(../Downloads/qjono6qhkfspqbs5d789b058a5e7.jpg);
+			background-size: cover;
+		}
+
+		table {
+			padding: 10px;
+			margin-top: 20px;
+			border: 2px solid #009688;
+			border-collapse: collapse;
+		}
+
+		th,td {
+			padding: 15px;
+			border: 2px solid #009688;
+		}
+
+		th {
+			background: #15dc80;
+			color: white;
+			text-transform: capitalize;
+		}
+
+		button {
+			margin-left: 10px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.error {
+			background: #00bcd4;
+			color: white;
+			position: absolute;
+			padding-right: 40px;
+			padding-left: 5px;
+			border: 1px gold solid;
+			top: 300px;
+		}
+
+		.error a {
+			position: absolute;
+			top: -5px;
+			left: 330px;
+			font-size: 30px;
+			font-weight: 300;
+			color: white;
+			text-decoration: none;
+		}
+
+		button:focus { outline: none; }
+		input:focus { outline: none; }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Task Manager</h1>
+		<h2>Enter a new task here</h2>
+		<div id="first">
+			Enter a task here: <input type="text" id="detailInput"><button onclick="addItem()">Add Task</button>
+		</div>
+
+		<div class="error">
+			<h3>Please enter your task in the input field</h3>
+			<a href="#">&times;</a>
+		</div>
+
+		<div class="error">
+			<h3>Task already exist, enter another task</h3>
+			<a href="#">&times;</a>
+		</div>
+	</header>
+	
+
+	<center><table border="" id="table">
+		<tr>
+			<th>id</th>
+			<th>date</th>
+			<th>task detail</th>
+			<th>action</th>
+		</tr>
+	</table></center>
+	
+	<script type="text/javascript">
+		let table = document.getElementById('table');
+		let inputDetail = document.getElementById('detailInput');
+
+		table.style = 'display: none';
+		
+		let items = [];
+		let item = [];
+		function addItem() {
+			if (inputDetail.value !== '') {
+				for (var i = 0; i < items.length; i++) {
+					item[0] = i;
+					
+					item[1] = new Date().toDateString();
+					item[2] = inputDetail.value;
+					
+				}
+
+				items.push(item);
+
+
+				if (i >= 2) {
+					console.log(items);
+					console.log(items.length);
+					
+					error(lastInput);		
+				}	
+			} else{
+
+			}	
+
+			lastInput = item[2];			
+		};
+
+		
+
+
+		function error(el) {
+
+			if (inputDetail.value !== el) {
+				createTable();
+			}else {
+				items.pop(item);
+			}
+		};
+
+
+		function createTable() {
+			table.style = 'display: table';
+
+			let tableRow = document.createElement('tr');
+			let tableid = document.createElement('td');
+			let tableTi = document.createElement('td');
+			let tableDe = document.createElement('td');
+			let button = document.createElement('button');
+			let breaker = document.createElement('br');
+			let button1 = document.createElement('button');
+			let id = document.createTextNode(item[0]);
+			let title = document.createTextNode(item[1]);
+			let detail = document.createTextNode(item[2]);
+			let btn = document.createTextNode('update');
+			let btn1 = document.createTextNode('delete');
+			tableid.appendChild(id);
+			tableTi.appendChild(title);
+			tableDe.appendChild(detail);
+			button.appendChild(btn);
+			button1.appendChild(btn1);
+			tableRow.appendChild(tableid);
+			tableRow.appendChild(tableTi);
+			tableRow.appendChild(tableDe);
+			tableRow.appendChild(button);
+			tableRow.appendChild(breaker);
+			tableRow.appendChild(button1);
+			table.appendChild(tableRow);
+		}
+	</script>
+</body>
+</html>
